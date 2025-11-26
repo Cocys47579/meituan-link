@@ -209,6 +209,7 @@
 
     <div class="tool-container">
         <h3>🎯 免配送/津贴活动直达</h3>
+        <p style="font-size:14px; color:#777; margin-bottom: 15px;">直达App内补贴（如免配送/津贴）页面。适用于已安装App的设备。</p>
         
         <div class="jump-grid">
             <a href="imeituan://www.meituan.com/takeout/browser?inner_url=https%3A%2F%2Fadfec.meituan.com%2Fallowance%2Fcommon%3Ft%3D1%26c%3D2%26p%3DmOu8Br9zBHIm%26%3D1%26future%3D2%26scene_id%3D368%26entry%3Dqplmp%26modelcode%3Dqplmp%26need_login%3D1%26wxapp_force_login%3D1" class="direct-jump-button meituan-jump">
@@ -223,6 +224,7 @@
     
     <div class="tool-container">
         <h3>💰 免单活动跳转链接</h3>
+        <p style="font-size:14px; color:#777; margin-bottom: 15px;">直达App内免单、签到等高额返利活动页面。</p>
         
         <div class="jump-grid">
             <a href="imeituan://www.meituan.com/takeout/browser?inner_url=https%3A%2F%2Fadfec.meituan.com%2Fallowance%2Ffree%3Ft%3D1%26c%3D2%26p%3DmOu8Br9zBHIm%26notitlebar%3D1%26future%3D2%26scene_id%3D344%26entry%3Dtuansousuo%26wmUserIdDeregistration%3D-1%26wmUuidDeregistration%3D-1" class="direct-jump-button meituan-jump">
@@ -237,6 +239,7 @@
 
     <div class="tool-container">
         <h3>🔗 自定义商家免单/免配送二维码生成器</h3>
+        <p style="font-size:14px; color:#777; margin-bottom: 15px;">用于生成 **免单/免运费双叠加** 等复杂活动链接的二维码。</p>
         
         <form id="qr-form">
             <label for="platform">1. 选择目标平台</label>
@@ -246,7 +249,7 @@
             </select>
 
             <label for="url-params">2. 输入链接参数部分</label>
-            <textarea id="url-params" placeholder=''></textarea>
+            <textarea id="url-params" placeholder='例如：poi_id=-100&poi_id_str=...&ad_activity_flag={"adActivityFlag":"200","type":0,"token":"3jjCRNg"}'></textarea>
 
             <div id="error-box" class="message-box error-message" style="display:none;"></div>
 
@@ -256,7 +259,7 @@
         <div id="qr-code-output" style="display: none;">
             <p>扫描二维码跳转</p>
             <div id="qr-code-container"></div>
-            <p></p>
+            <p>👇 最终深度链接 (已转义)</p>
             <div id="final-link-display"></div>
         </div>
     </div>
