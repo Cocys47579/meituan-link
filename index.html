@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大众点评 - 链接跳转</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .deep-link-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: #FFC300; /* 美团主题色 */
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .deep-link-button:hover {
+            background-color: #E0AE00;
+        }
+        p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>欢迎来到美团外卖页面！</h1>
+    <p>点击下方按钮，将自动打开美团App的指定页面：</p>
+
+    <a href="dianping://waimai.dianping.com/takeout/foods?poi_id=-100&poi_id_str=wsjZm5aFpqAQnjEDKK4ppwI&allowance_alliance_scenes=720051115&ad_activity_flag=%7B%22adActivityFlag%22%3A%22200%22%2C%22type%22%3A0%2C%22token%22%3A%223jjCRNg%22%7D" class="deep-link-button">
+        立即打开美团App
+    </a>
+
+    <p style="margin-top: 30px; font-size: 0.9em;">（如果App未安装，可能不会有任何反应或显示错误。）</p>
+
+</body>
+</html>
