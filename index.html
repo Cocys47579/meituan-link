@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美团/大众点评 外卖攻略集 By：丰年</title>
+    
+    <script src="https://unpkg.com/qrious@4.0.2/dist/qrious.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5; 
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h2 {
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+        
+        h3 {
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tool-container {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 20px 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 25px; 
+        }
+        
+        .jump-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px;
+        }
+        
+        .direct-jump-button {
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .meituan-jump {
+            background-color: #FFC300;
+            color: #333;
+        }
+        .meituan-jump:hover {
+            opacity: 0.9;
+        }
+
+        .dianping-jump {
+            background-color: #FF6900;
+            color: #FFFFFF;
+        }
+        .dianping-jump:hover {
+            opacity: 0.9;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+        
+        select:focus, textarea:focus {
+            border-color: #FFC300;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 120px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            resize: vertical;
+        }
+
+        .generate-button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 30px;
+            background-color: #FFC300;
+            color: #333;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        .generate-button:hover {
+            background-color: #FFD24C;
+        }
+        .generate-button:active {
+            transform: scale(0.99);
+        }
+
+        .message-box {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .error-message {
+            background-color: #ffebeb;
+            color: #d9534f;
+            border: 1px solid #f5c6cb;
+        }
+
+        #qr-code-output {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px dashed #e0e0e0;
+        }
+
+        #qr-code-output p {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        #qr-code-container {
+            display: inline-block;
+            padding: 15px;
+            background-color: white;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #qr-code-container canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #final-link-display {
+            word-break: break-all;
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            font-size: 12px;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .tool-container {
+                padding: 15px;
+            }
+            .jump-grid {
+                grid-template-columns: 1fr; 
+            }
+            h2 {
+                font-size: 22px;
+            }
+            h3 {
+                font-size: 16px;
+            }
+            .direct-jump-button {
+                font-size: 14px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>美团/大众点评 外卖攻略集 By：丰年</h2>
+
+    <div class="tool-container">
+        <h3>🎯 免配送/津贴活动直达</h3>
+        <p style="font-size:14px; color:#777; margin-bottom: 15px;">直达App内补贴（如免配送/津贴）页面。适用于已安装App的设备。</p>
+        
+        <div class="jump-grid">
+            <a href="#" data-encoded-link="aW1laXR1YW46Ly93d3cubWVpdHVhbi5jb20vdGFrZW91dC9icm93c2VyP2lubmVyX3VybD1odHRwcyUzQSUyRiUyRmFkZmVjLm1laXR1YW4uY29tJTJGYWxsb3dhbmNlJTJGY29tbW9uJTNGdCUzRDElMjZjJTNEMSUyNnAlM0RtT3U4QnI5ekJISW0lMjYlM0QxJTI2ZnV0dXJlJTNEc3RyaWQlMjZzY2VuZV9pZCUzRHN0cmlkJTI2ZW50cnklM0RzdHJpZCUyNm1vZGVsY29kZSUzRHN0cmlkJTI2bmVlZF9sb2dpbiUzRDElMjZ3eGFwcF9mb3JjZV9sb2dpbiUzRDg%3D" class="direct-jump-button meituan-jump">
+                🛵 美团 App (免运/津贴)
+            </a>
+
+            <a href="#" data-encoded-link="aW1laXR1YW46Ly93d3cubWVpdHVhbi5jb20vdGFrZW91dC9icm93c2VyP2lubmVyX3VybD1odHRwcyUzQSUyRiUyRmFkZmVjLm1laXR1YW4uY29tJTJGYWxsb3dhbmNlJTJGY29tbW9uJTNGdCUzRDElMjZjJTNEMiUyNnAlM0RtT3U4QnI5ekJISW0lMjYlM0QxJTI2ZnV0dXJlJTNERiUyNnNjZW5lX2lkJTNEc3RyaWQlMjZlbnRyeSUzRHN0cmlkJTI2bW9kZWxjb2RlJTNEc3RyaWQlMjZuZWVkX2xvZ2luJTNEc3RyaWQlMjZ3eGFwcF9mb3JjZV9sb2dpbiUzRHN0cmlk" class="direct-jump-button dianping-jump">
+                ⭐ 点评 App (免运/津贴)
+            </a>
+        </div>
+    </div>
+    
+    <div class="tool-container">
+        <h3>💰 免单活动跳转链接</h3>
+        <p style="font-size:14px; color:#777; margin-bottom: 15px;">直达App内免单、签到等高额返利活动页面。</p>
+        
+        <div class="jump-grid">
+            <a href="#" data-encoded-link="aW1laXR1YW46Ly93d3cubWVpdHVhbi5jb20vdGFrZW91dC9icm93c2VyP2lubmVyX3VybD1odHRwcyUzQSUyRiUyRmFkZmVjLm1laXR1YW4uY29tJTJGYWxsb3dhbmNlJTJGZnJlZSUzRnQlM0QxJTI2YyUzRDIlMjZwJTNEbU91OEJyOXpCSEltJTI2bm90aXRsZWJhciUzRDElMjZmdXR1cmUlM0QyJTI2c2NlbmVfaWQlM0QzNDQlMjZlbnRyeSUzRHR1YW5zb3VzdW8lMjZ3bVVzZXJJZERlcmVnaXN0cmF0aW9uJTNELTElMjZ3bVV1aWREZXJlZ2lzdHJhdGlvbiUzRC0x" class="direct-jump-button meituan-jump">
+                🧧 美团 免单活动
+            </a>
+            
+            <a href="#" data-encoded-link="ZGlhbnBpbmc6Ly93YWltYWkuZGlhbnBpbmcuY29tL3Rha2VvdXQvYnJvd3Nlcj9pbm5lcl91cmw9aHR0cHMlM0ElMkYlMkZhZGZlYy5tZWl0dWFuLmNvbSUyRmFsbG93YW5jZSUyRnZyZWUlM0Z0JTNEMSUyNmMlM0QyJTI2cCUzRG1PdThCcjl6QkhJbSUyNm5vdGl0bGViYXIlM0QxJTI2ZnV0dXJlJTNEMiUyNnNjZW5lX2lkJTNEMzQ0JTI2ZW50cnklM0R0dWFuc291c3VvJTI2d21Vc2VySWREZXJlZ2lzdHJhdGlvbiUzRC0xJTI2d21VdXVpZERlcmVnaXN0cmF0aW9uJTNELTE=" class="direct-jump-button dianping-jump">
+                ✨ 点评 免单活动
+            </a>
+        </div>
+    </div>
+
+    <div class="tool-container">
+        <h3>🔗 自定义商家免单/免配送二维码生成器</h3>
+        <p style="font-size:14px; color:#777; margin-bottom: 15px;">用于生成 **免单/免运费双叠加** 等复杂活动链接的二维码。</p>
+        
+        <form id="qr-form">
+            <label for="platform">1. 选择目标平台</label>
+            <select id="platform">
+                <option value="meituan">美团</option>
+                <option value="dianping">大众点评</option>
+            </select>
+
+            <label for="url-params">2. 输入链接参数部分</label>
+            <textarea id="url-params" placeholder='例如：poi_id=-100&poi_id_str=...&ad_activity_flag={"adActivityFlag":"200","type":0,"token":"3jjCRNg"}'></textarea>
+
+            <div id="error-box" class="message-box error-message" style="display:none;"></div>
+
+            <button type="submit" class="generate-button">生成二维码</button>
+        </form>
+
+        <div id="qr-code-output" style="display: none;">
+            <p>扫描二维码跳转</p>
+            <div id="qr-code-container"></div>
+            <p>👇 最终 Base64 混淆字符串</p>
+            <div id="final-link-display"></div>
+        </div>
+    </div>
+
+    <script>
+        // Base64 解码辅助函数
+        const decodeBase64 = (encoded) => {
+            try {
+                return atob(encoded);
+            } catch (e) {
+                console.error("Base64 解码失败:", e);
+                return "#error"; 
+            }
+        };
+
+        // 静态按钮点击事件：点击时才解码并跳转
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.direct-jump-button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault(); 
+
+                    const encodedLink = this.getAttribute('data-encoded-link');
+                    if (encodedLink) {
+                        const decodedLink = decodeBase64(encodedLink);
+                        
+                        if (decodedLink && decodedLink !== '#error') {
+                            window.location.href = decodedLink;
+                        } else {
+                            console.error("链接解码失败，无法跳转。");
+                            alert("跳转失败：链接数据损坏或无法解码。");
+                        }
+                    }
+                });
+            });
+        });
+
+        const errorBox = document.getElementById('error-box');
+
+        document.getElementById('qr-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            errorBox.style.display = 'none'; 
+            document.getElementById('qr-code-output').style.display = 'none'; 
+            generateQRCode();
+        });
+
+        function showError(message) {
+            errorBox.textContent = message;
+            errorBox.style.display = 'block';
+        }
+
+        function generateQRCode() {
+            const platform = document.getElementById('platform').value;
+            const params = document.getElementById('url-params').value.trim();
+            
+            if (!params) {
+                showError("抱歉生成二维码失败，请检查输入是否符合要求！ 错误提示：参数文本框不能为空。");
+                return;
+            }
+
+            let prefix = '';
+            
+            // 1. 设置链接前缀 (使用 Base64 混淆存储)
+            if (platform === 'meituan') {
+                prefix = atob('aW1laXR1YW46Ly93d3cubWVpdHVhbi5jb20vdGFrZW91dC9mb29kcz8=');
+            } else if (platform === 'dianping') {
+                prefix = atob('ZGlhbnBpbmc6Ly93YWltYWkuZGlhbnBpbmcuY29tL3Rha2VvdXQvZm9vZHM/');// ZGlhbnBpbmc6Ly93YWltYWkuZGlhbnBpbmcuY29tL3Rha2VvdXQvZm9vZH
+            }
+
+            let finalUrlParams = '';
+            let valid = true;
+            
+            params.split('&').forEach(pair => {
+                if (!valid) return;
+
+                const parts = pair.split('=', 2);
+                
+                if (parts.length === 2) {
+                    let key = parts[0];
+                    let value = parts[1];
+                    
+                    if (value.startsWith('{') && value.endsWith('}')) {
+                        try {
+                            JSON.parse(value);
+                            finalUrlParams += `${key}=${encodeURIComponent(value)}&`;
+                        } catch (e) {
+                            showError('抱歉生成二维码失败，请检查输入是否符合要求！ 错误提示：参数 ' + key + ' 的值不是有效的 JSON 格式。');
+                            valid = false;
+                        }
+                    } else if (value === '') {
+                        showError('抱歉生成二维码失败，请检查输入是否符合要求！ 错误提示：参数 ' + key + ' 的值不能为空。');
+                        valid = false;
+                    } 
+                    else {
+                        finalUrlParams += `${pair}&`;
+                    }
+                } else if (pair.trim() !== '') {
+                    showError("抱歉生成二维码失败，请检查输入是否符合要求！ 错误提示：参数 '" + pair + "' 格式不正确，应为 key=value。");
+                    valid = false;
+                }
+            });
+
+            if (!valid) return;
+            
+            finalUrlParams = finalUrlParams.slice(0, -1);
+            const fullLink = prefix + finalUrlParams;
+
+            // 2. Base64 混淆最终链接 (二维码扫描的内容)
+            const encodedLink = btoa(fullLink);
+
+            // 3. 生成二维码
+            const qrContainer = document.getElementById('qr-code-container');
+            qrContainer.innerHTML = '<canvas id="qrcode-canvas"></canvas>'; 
+
+            try {
+                // 二维码的值是 Base64 编码的链接
+                new QRious({
+                    element: document.getElementById('qrcode-canvas'),
+                    value: encodedLink, 
+                    size: 256, 	
+                    level: 'L'
+                });
+            } catch (e) {
+                showError("抱歉生成二维码失败，请检查输入是否符合要求！ 错误提示：链接可能过长或包含无法识别的字符。");
+                return;
+            }
+            
+            // 4. 显示 Base64 混淆字符串 (而不是明文链接)
+            document.getElementById('final-link-display').textContent = encodedLink;
+            document.getElementById('qr-code-output').style.display = 'block';
+
+            document.getElementById('qr-code-output').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
